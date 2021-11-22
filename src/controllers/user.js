@@ -6,7 +6,7 @@ const sendMail = require('./sendMail')
 const {CLIENT_URL} = process.env
 
 const controllerUser = {
-    register: async (req, res) => {
+    register: async (req, res) => {cd 
         try{
             const {name, email, password} = req.body
 
@@ -64,7 +64,7 @@ const controllerUser = {
                 name, email, passwordHash, role
             })
 
-            console.log(newUser)
+            
             await newUser.save()
             res.json({msg: "User has been create!"})
 
@@ -91,12 +91,13 @@ const controllerUser = {
             res.json({msg: "Account has been activated!"})
 
         } catch (err) {
-            return res.status(500).json({msg: err.message})
+            return  res.status(500).json({msg: err.message})
         }
     },
     //Revisar que enviar importante.
     login: async (req, res) => {
         try {
+            console.log(req.body, 'ingresologin')
             const {email, password} = req.body
             const user = await User.findOne({email})
             
@@ -110,7 +111,7 @@ const controllerUser = {
             
             const refresh_token = createRefreshToken({id: user._id})
             
-            // res.cookie('session_id', '12345')
+            
             // res.cookie('refreshtoken', refresh_token, {
             //     httpOnly: false,
             //     path: '/api/refresh_token',
@@ -214,7 +215,7 @@ const controllerUser = {
     updateUsersRole: async (req, res) => {
         try {
             const {role} = req.body
-yar
+
             await User.findOneAndUpdate({_id: req.params.id}, {
                 role
             })

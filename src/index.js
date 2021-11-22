@@ -2,10 +2,11 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const cookieParser = require('cookie-parser')
+// const cookieParser = require('cookie-parser')
 const fileUpload = require('express-fileupload')
 const path = require('path')
 const user = require('./routes/user')
+const upload = require('./routes/upload')
 
 
 
@@ -21,13 +22,14 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(fileUpload({
     useTempFiles: true
 }))
 app.use(express.static('../client/build'))
  
 app.use('/api', user)
+app.use('/api', upload)
 
 
 // Setting
